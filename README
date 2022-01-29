@@ -1,4 +1,12 @@
 TLS Client Socket
 
-A client program that connects to a server using a TLS socket connection. The program is run from the command line and passes arguments for hostname and NUID, and an optional argument port.
+A client program that connects to a server using a TLS socket connection. The program is run from the command line and passes arguments for hostname and NUID, and an optional argument for port.
 The client program evaluates the EVAL expression and returns the result back to the server. This continues until a BYE message is received with a secret_flag.
+
+First I had to make sure I could establish a connection to the server. After securing an SSL connection to the socket, I got the first EVAL message. At this point I started working on my evaluate() method as I wanted to make sure a solution was being returned before moving on, so I could send the solution back to the server.
+After implementing the evaluate method, the program sends the STATUS message back to the server. If the answer is correct, the server will keep sending EVAL messages and the program has to solve them and send back STATUS messages until the server returns a BYE message that contains a secret flag. Once I had this implemented I added functionality to send the ERR message in the case of a ZeroDivisionError.
+After completing the program and getting the secret flag successfully, I then put it together using a makefile that creates a linked file called 'client', and gives it executable permissions. From the command line/terminal, you first run 'make' from within the project directory, then the program can be run in one line: './client -p [PORT] -s [HOSTNAME] [NUID]'
+
+I initially started writing this program in Java. However after establishing a connection and working on the evaluate() method, I was struggling with figuring out a solution for how to evaluate the '<<^' (xor) operator. After doing some research I found out that there is a straightforward way of evaluating that operator in Python, therefore I decided to rewrite the program in python as the logic was mostly done and it was taking too long, it was the best option at that point. Although I have previous experience using python I still was faced with the challenge of learning how to create an SSL socket connection.
+
+To test whether the program was executing correctly, I used the example tree expression from the project specification and ran evaluate() on it, and checked the result returned with the result from the STATUS message in the project spec. Furthermore, I ran the program from various locations (my local machine, the NEU wifi and VPN, and the Khoury server), as well as using different or incorrect commands (with and without the optional port argument, adding/removing arguments)
