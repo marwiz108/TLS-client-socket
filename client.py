@@ -4,7 +4,6 @@ import socket
 import ssl
 import sys
 
-# assign command line args
 PORT = int(sys.argv[2]) if sys.argv[1] == "-p" else 27995
 HOST = sys.argv[-2]
 NUID = sys.argv[-1]
