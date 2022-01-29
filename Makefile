@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+all:
+	chmod +x client
 
-run:
-	python ./client.py -p 27995 -s project1.5700.network elali.m
+clean:
+	rm -rf __pycache__
